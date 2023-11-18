@@ -10,6 +10,9 @@ defineProps({
     },
     canRegister: {
         type: Boolean,
+    },
+    users:{
+        type: Array
     }
 });
 </script>
@@ -24,6 +27,12 @@ defineProps({
                     <SecondaryButton>abiba</SecondaryButton>
                     <SecondaryButton>kaka</SecondaryButton>
                     <SecondaryButton>puka</SecondaryButton>
+                    <div>
+                        <h2>List of users</h2>
+                        <ul>
+                            <li v-for="user in users" :key="user.id">{{ user.name }}</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
