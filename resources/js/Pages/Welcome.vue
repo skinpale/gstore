@@ -2,6 +2,7 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import Carousel from "@/Components/Carousel.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import Footer from "@/Layouts/Footer.vue";
 
 defineProps({
     canLogin: {

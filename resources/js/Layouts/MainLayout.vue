@@ -1,5 +1,6 @@
 <script setup>
 import NavbarLayout from "@/Layouts/NavbarLayout.vue";
+import Footer from "@/Layouts/Footer.vue";
 
 defineProps({
     canLogin: {
@@ -29,6 +30,8 @@ defineProps({
             </main>
         </div>
     </div>
+
+    <Footer/>
 </template>
 
 <style>

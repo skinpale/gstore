@@ -5,6 +5,9 @@ import Dropdown from "@/Components/Dropdown.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import {Link} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import SearchField from "@/Components/SearchField.vue";
 
 defineProps({
     canLogin: {
@@ -19,7 +22,7 @@ defineProps({
 <template>
     <nav class="bg-white border-b border-gray-100 shadow">
         <!-- Top menu-->
-        <div class="max-w-7xl mx-auto border-b pb-2">
+        <div class="max-w-7xl mx-auto border-b">
             <div class="flex justify-between h-16">
                 <!-- Logo -->
                 <div class="flex my-3">
@@ -33,9 +36,9 @@ defineProps({
                 <!-- Additional Links -->
                 <div class="flex items-center">
                     <div class="space-x-4">
-                        <NavLink href="#" :active="route().current('/')">Про нас</NavLink>
-                        <NavLink href="#">Магазини</NavLink>
-                        <NavLink href="#">Гарантія</NavLink>
+                        <NavLink href="#" :active="route().current('#')">Про нас</NavLink>
+                        <NavLink href="#" :active="route().current('#')">Магазини</NavLink>
+                        <NavLink href="#" :active="route().current('#')">Гарантія</NavLink>
                     </div>
                 </div>
             </div>
@@ -75,35 +78,46 @@ defineProps({
                 </div>
                 <!-- Search field -->
                 <div class="w-1/2 ms-6">
-                    <form>
-                        <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                     fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                </svg>
-                            </div>
-                            <input type="search" id="search"
-                                   class="block w-full p-1.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                                   placeholder="Пошук товарів" required>
-                        </div>
-                    </form>
+                    <SearchField></SearchField>
                 </div>
                 <!-- Auth -->
                 <div v-if="canLogin" class="ml-auto text-end">
-                    <PrimaryButton>Вийти</PrimaryButton>
-
-                    <Link
-                        v-if="$page.props.auth.user"
-                        :href="route('logout')"
-                        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500"
-                        method="post"
-                        as="button"
-                    >выйти
-                    </Link
-                    >
+                    <div v-if="$page.props.auth.user" class="flex items-center">
+                        <!--Profile-->
+                        <Link :href="route('/')">
+                            <SecondaryButton class="h-9 ml-3">
+                                <span class="mr-1">Профіль |</span>
+                                <svg class="w-5 h-5 text-gray-800 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="none" viewBox="0 0 20 16">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.656 12.115a3 3 0 0 1 5.682-.015M13 5h3m-3 3h3m-3 3h3M2 1h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm6.5 4.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+                                </svg>
+                            </SecondaryButton>
+                        </Link>
+                        <!--Cart-->
+                        <Link :href="route('/')">
+                            <SecondaryButton class="h-9 ml-3">
+                                <span class="mr-1">Корзина |</span>
+                                <svg class="w-5 h-5 text-gray-800 ml-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="none" viewBox="0 0 18 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
+                                </svg>
+                            </SecondaryButton>
+                        </Link>
+                        <!--Logout-->
+                        <Link :href="route('logout')" method="post" as="button">
+                            <SecondaryButton class="h-9 ml-3">
+                                <span class="mr-1">Вихід |</span>
+                                <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                     fill="none" viewBox="0 0 18 15">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M1 7.5h11m0 0L8 3.786M12 7.5l-4 3.714M12 1h3c.53 0 1.04.196 1.414.544.375.348.586.82.586 1.313v9.286c0 .492-.21.965-.586 1.313A2.081 2.081 0 0 1 15 14h-3"/>
+                                </svg>
+                            </SecondaryButton>
+                        </Link>
+                    </div>
 
                     <template v-else>
                         <Link

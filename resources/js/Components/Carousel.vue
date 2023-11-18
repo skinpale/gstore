@@ -17,7 +17,7 @@
         <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
             <button v-for="(slide, index) in slides" :key="index" type="button"
                     class="w-4 h-4 rounded-full bg-white transition duration-300"
-                    :class="{ 'bg-red-400': currentSlide === index }"
+                    :class="{ 'bg-gray-900 outline outline-white outline-2': currentSlide === index }"
                     :aria-current="currentSlide === index"
                     :aria-label="`Slide ${index + 1}`"
                     @click="goToSlide(index)">
