@@ -19,6 +19,30 @@ defineProps({
 });
 </script>
 
+<script>
+export default {
+    data() {
+        return {
+            categories: [],
+        };
+    },
+    created() {
+        this.fetchCategories();
+    },
+    methods: {
+        fetchCategories() {
+            axios.get('/api/categories')
+                .then(response => {
+                    this.categories = response.data.categories;
+                })
+                .catch(error => {
+                    console.error('Error fetching categories', error);
+                });
+        },
+    },
+};
+</script>
+
 <template>
     <nav class="bg-white border-b border-gray-100 shadow">
         <!-- Top menu-->
@@ -72,7 +96,9 @@ defineProps({
                         </template>
 
                         <template #content>
-                            <DropdownLink :href="route('profile.edit')">#</DropdownLink>
+                            <div v-for="category in categories" :key="category.id">
+                                <DropdownLink :href="category.url">{{ category.name }}</DropdownLink>
+                            </div>
                         </template>
                     </Dropdown>
                 </div>
