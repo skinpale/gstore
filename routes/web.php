@@ -15,9 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Test request
 Route::get('/test', function (){
-    $content = \Illuminate\Support\Facades\Storage::get('public/1.png');
-    dd($content);
+    $products = \App\Models\Product::whereNotNull('discount_price')
+        ->select('id', 'name', 'discount_price') // Add the columns you need
+        ->get();
+
+    dd($products);
 });
 
 Route::get('/', [WelcomeController::class, 'index'])->name('/');
