@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/test', function (){
+    $content = \Illuminate\Support\Facades\Storage::get('public/1.png');
+    dd($content);
+});
+
 Route::get('/', [WelcomeController::class, 'index'])->name('/');
 
 Route::middleware('auth')->group(function () {

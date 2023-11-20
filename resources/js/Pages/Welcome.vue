@@ -27,11 +27,8 @@ defineProps({
                     <SecondaryButton>abiba</SecondaryButton>
                     <SecondaryButton>kaka</SecondaryButton>
                     <SecondaryButton>puka</SecondaryButton>
-                    <div>
-                        <h2>List of users</h2>
-                        <ul>
-                            <li v-for="user in users" :key="user.id">{{ user.name }}</li>
-                        </ul>
+                    <div v-for="index in 7" :key="index" class="rounded-lg bg-white p-7">
+                        <img :src="`/storage/hardware/monitors/TNKKneW4/${index}.webp`" alt="Image">
                     </div>
                 </div>
             </div>
