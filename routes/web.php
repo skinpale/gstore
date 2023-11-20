@@ -3,6 +3,7 @@
 use App\Http\Controllers\Pages\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,13 +19,20 @@ use Illuminate\Support\Facades\Route;
 // Test request
 Route::get('/test', function (){
     $products = \App\Models\Product::whereNotNull('discount_price')
-        ->select('id', 'name', 'discount_price') // Add the columns you need
+        ->select('id', 'name', 'discount_price')
         ->get();
 
     dd($products);
 });
 
-Route::get('/', [WelcomeController::class, 'index'])->name('/');
+Route::get('/', function (){
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register')
+    ]);
+})->name('/');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
