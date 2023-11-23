@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -35,6 +37,17 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+        });
+
+        Route::bind('category', function ($value) {
+            return Category::where('url', $value)->firstOrFail();
+        });
+
+        Route::bind('subcategory', function ($value, $route) {
+            $category = $route->parameter('category');
+            return Subcategory::where('url', $value)
+                ->where('category_id', $category->id)
+                ->firstOrFail();
         });
     }
 }

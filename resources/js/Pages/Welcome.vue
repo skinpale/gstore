@@ -10,9 +10,6 @@ defineProps({
     },
     canRegister: {
         type: Boolean,
-    },
-    users:{
-        type: Array
     }
 });
 </script>

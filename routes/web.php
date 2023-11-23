@@ -33,6 +33,7 @@ Route::get('/', function (){
 })->name('/');
 
 
+Route::get('/{category}/{subcategory?}', [ProductController::class, 'getProducts']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
