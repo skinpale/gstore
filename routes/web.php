@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Pages\WelcomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,15 +26,7 @@ Route::get('/test', function (){
     dd($products);
 });
 
-Route::get('/', function (){
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
-    ]);
-})->name('/');
-
-
-Route::get('/{category}/{subcategory?}', [ProductController::class, 'getProducts']);
+require __DIR__.'/auth.php';
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,4 +34,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::get('/', function (){
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register')
+    ]);
+})->name('/');
+
+Route::get('/{category}/{subcategory?}', [ProductController::class, 'getProducts']);

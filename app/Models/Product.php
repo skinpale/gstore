@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
     use HasFactory;
 
-    public function category(): HasOne{
-        return $this->hasOne(Category::class);
+    public function category(): BelongsToMany{
+        return $this->belongsToMany(Category::class);
     }
 }
