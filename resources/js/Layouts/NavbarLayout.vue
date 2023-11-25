@@ -97,7 +97,7 @@ export default {
 
                         <template #content>
                             <div v-for="category in categories" :key="category.id">
-                                <DropdownLink :href="category.url">{{ category.name }}</DropdownLink>
+                                <DropdownLink :href="route('products', {category: category.url})">{{ category.name }}</DropdownLink>
                             </div>
                         </template>
                     </Dropdown>

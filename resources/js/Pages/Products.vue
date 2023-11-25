@@ -2,6 +2,7 @@
 import MainLayout from "@/Layouts/MainLayout.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
+import Rating from "@/Components/Rating.vue";
 
 defineProps({
     canLogin: {
@@ -72,6 +73,12 @@ defineProps({
                                     <!-- Название товара -->
                                     <h2 class="text-lg font-semibold line-clamp-2">{{ product.name }}</h2>
 
+                                    <!--Рейтинг-->
+                                    <div class="flex">
+                                        <div class="ml-auto">
+                                            <Rating :rating="product.rating"></Rating>
+                                        </div>
+                                    </div>
                                     <div v-if="product.discount_price" class="mb-2 flex items-center">
                                         <!-- Цена товара -->
                                         <div class="text-gray-700 line-through ml-auto pr-2 ">{{ product.price }} грн</div>
@@ -86,7 +93,7 @@ defineProps({
                                             <span class="text-2xl">грн</span>
                                         </div>
                                     </div>
-                                    <!-- Дополнительные детали, описание и т.д., если необходимо -->
+                                    <!-- Кнопка купити -->
                                     <div>
                                         <SecondaryButton class="w-full mx-auto justify-center">Купити</SecondaryButton>
                                     </div>
