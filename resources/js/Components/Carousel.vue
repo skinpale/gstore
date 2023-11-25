@@ -14,7 +14,7 @@
 
 
         <!-- Slider indicators -->
-        <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
+        <div class="absolute z-30 flex -translate-x-1/2 bottom-10 left-1/2 space-x-3 rtl:space-x-reverse">
             <button v-for="(slide, index) in slides" :key="index" type="button"
                     class="w-4 h-4 rounded-full bg-white transition duration-300"
                     :class="{ 'bg-opacity-40': currentSlide === index }"

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Pages\WelcomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -35,10 +36,16 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', function (){
+    $products = Product::whereNotNull('discount_price')->get();
+
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register')
+        'canRegister' => Route::has('register'),
+        'products' => $products
     ]);
 })->name('/');
 
-Route::get('/{category}/{subcategory?}', [ProductController::class, 'getProducts']);
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+
+Route::get('/{category}/{subcategory?}', [ProductController::class, 'getProducts'])->name('products');
+

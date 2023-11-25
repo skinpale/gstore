@@ -46,7 +46,7 @@ export default {
 <template>
     <nav class="bg-white border-b border-gray-100 shadow">
         <!-- Top menu-->
-        <div class="max-w-7xl mx-auto border-b">
+        <div class="max-w-7xl mx-auto">
             <div class="flex justify-between h-16">
                 <!-- Logo -->
                 <div class="flex my-3">
