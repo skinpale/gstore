@@ -3,6 +3,8 @@ import MainLayout from "@/Layouts/MainLayout.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Rating from "@/Components/Rating.vue";
+import ProductDetails from "@/Components/ProductDetails.vue";
+import ProductCard from "@/Components/ProductCard.vue";
 
 defineProps({
     canLogin: {
@@ -64,41 +66,7 @@ defineProps({
                 <div v-if="products.data.length > 0">
                     <div class="grid grid-cols-4 gap-4">
                         <a v-for="product in products.data" :key="product.id" :href="route('products.show', {product : product.vendor_code})">
-                            <div class="flex flex-col">
-                                <div class="bg-white p-5 rounded overflow-hidden shadow-md hover:shadow-2xl">
-                                    <!-- Картинка (шаблонная) -->
-                                    <img :src="`/storage/hardware/monitors/${product.vendor_code}/1.webp`" alt="Image"
-                                         class="w-full rounded object-top mb-4 h-48">
-
-                                    <!-- Название товара -->
-                                    <h2 class="text-lg font-semibold line-clamp-2">{{ product.name }}</h2>
-
-                                    <!--Рейтинг-->
-                                    <div class="flex">
-                                        <div class="ml-auto">
-                                            <Rating :rating="product.rating"></Rating>
-                                        </div>
-                                    </div>
-                                    <div v-if="product.discount_price" class="mb-2 flex items-center">
-                                        <!-- Цена товара -->
-                                        <div class="text-gray-700 line-through ml-auto pr-2 ">{{ product.price }} грн</div>
-                                        <!-- Цена со скидкой (если есть) -->
-                                        <div class="text-4xl text-red-500">{{ product.discount_price }}
-                                            <span class="text-2xl">грн</span>
-                                        </div>
-                                    </div>
-                                    <div v-else class="mb-2 flex">
-                                        <!-- Цена товара -->
-                                        <div class="text-4xl text-gray-700 ml-auto">{{ product.price }}
-                                            <span class="text-2xl">грн</span>
-                                        </div>
-                                    </div>
-                                    <!-- Кнопка купити -->
-                                    <div>
-                                        <SecondaryButton class="w-full mx-auto justify-center">Купити</SecondaryButton>
-                                    </div>
-                                </div>
-                            </div>
+                            <ProductCard :product="product"></ProductCard>
                         </a>
                     </div>
                 </div>
