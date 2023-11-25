@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,7 +31,34 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show(){
-        dd("aboba");
+    public function show($code){
+        $product = Product::where('vendor_code', $code)->first();
+
+        if(!$product){
+            abort(404);
+        }
+
+        return Inertia::render('Product', [
+            'product' => $product,
+            'category' => $product->category,
+            'subcategory' => $product->subcategory
+        ])->with([
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register')
+        ]);
+    }
+
+    public function getNumberOfImages($vendorCode){
+        $directory = storage_path("app/public/hardware/monitors/{$vendorCode}");
+
+        // Check if the directory exists
+        if (File::isDirectory($directory)) {
+            $images = File::files($directory);
+            $numberOfImages = count($images);
+
+            return response()->json(['numberOfImages' => $numberOfImages]);
+        } else {
+            return response()->json(['numberOfImages' => 0]);
+        }
     }
 }

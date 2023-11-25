@@ -25,7 +25,7 @@ defineProps({
                 <div v-if="products.length > 0">
                     <div class="grid grid-cols-4 gap-4">
                         <a v-for="product in products" :key="product.id"
-                           :href="route('products.show', {product : product.id})">
+                           :href="route('products.show', {product : product.vendor_code})">
                             <div class="flex flex-col">
                                 <div class="bg-white p-5 rounded overflow-hidden shadow-md hover:shadow-2xl">
                                     <!-- Картинка (шаблонная) -->
