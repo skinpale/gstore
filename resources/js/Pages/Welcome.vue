@@ -1,6 +1,6 @@
 <script setup>
 import MainLayout from "@/Layouts/MainLayout.vue";
-import Carousel from "@/Components/Carousel.vue";
+import Carousel from "@/Components/WelcomeCarousel.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Footer from "@/Layouts/Footer.vue";
 import ProductCard from "@/Components/ProductCard.vue";
