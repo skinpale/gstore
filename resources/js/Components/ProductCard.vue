@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <div class="bg-white p-5 rounded overflow-hidden shadow-md hover:shadow-2xl">
+        <div class="bg-white p-5 rounded overflow-hidden shadow-md hover:shadow-2xl relative">
             <!-- Картинка (шаблонная) -->
             <img :src="`/storage/hardware/monitors/${product.vendor_code}/1.webp`" alt="Image"
                  class="w-full rounded object-top mb-4 h-48">
@@ -34,6 +34,11 @@
             <!-- Дополнительные детали, описание и т.д., если необходимо -->
             <div>
                 <SecondaryButton class="w-full mx-auto justify-center">Купити</SecondaryButton>
+            </div>
+
+            <!--Fire-->
+            <div v-if="product.discount_price" class="absolute top-2 end-5">
+                <span class="text-5xl">🔥</span>
             </div>
         </div>
     </div>

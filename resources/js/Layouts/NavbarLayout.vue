@@ -24,16 +24,27 @@ export default {
     data() {
         return {
             categories: [],
+            subcategories: []
         };
     },
     created() {
         this.fetchCategories();
+        this.fetchSubCategories();
     },
     methods: {
         fetchCategories() {
             axios.get('/api/categories')
                 .then(response => {
                     this.categories = response.data.categories;
+                })
+                .catch(error => {
+                    console.error('Error fetching categories', error);
+                });
+        },
+        fetchSubCategories() {
+            axios.get('/api/subcategories')
+                .then(response => {
+                    this.subcategories = response.data.subcategories;
                 })
                 .catch(error => {
                     console.error('Error fetching categories', error);
@@ -96,8 +107,17 @@ export default {
                         </template>
 
                         <template #content>
-                            <div v-for="category in categories" :key="category.id">
-                                <DropdownLink :href="route('products', {category: category.url})">{{ category.name }}</DropdownLink>
+                            <div class="grid grid-cols-5 gap-4 max-h-[400px]">
+                                <div v-for="category in categories" :key="category.id">
+                                    <DropdownLink :href="route('products', {category: category.url})" class="font-bold">
+                                        {{ category.name }}
+                                    </DropdownLink>
+                                    <div v-for="subcategory in subcategories" :key="subcategory.id">
+                                        <DropdownLink  :href="route('products', {category: category.url, subcategory: subcategory.url})">
+                                            {{ subcategory.name }}
+                                        </DropdownLink>
+                                    </div>
+                                </div>
                             </div>
                         </template>
                     </Dropdown>
@@ -107,7 +127,7 @@ export default {
                     <SearchField></SearchField>
                 </div>
                 <!-- Auth -->
-                <div v-if="canLogin" class="ml-auto text-end">
+                <div v-if="canLogin" class="ml-4 text-end">
                     <div v-if="$page.props.auth.user" class="flex items-center">
                         <!--Profile-->
                         <Link :href="route('/')">
@@ -143,7 +163,7 @@ export default {
                     </div>
 
                     <template v-else>
-                        <div class="flex items-center ml-4">
+                        <div class="flex items-center ml-3">
                             <Link :href="route('login')"><PrimaryButton>Увійти</PrimaryButton></Link>
                             <Link
                                 v-if="canRegister"
