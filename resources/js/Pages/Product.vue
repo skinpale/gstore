@@ -3,6 +3,8 @@ import MainLayout from "@/Layouts/MainLayout.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import Rating from "@/Components/Rating.vue";
 import ProductDetails from "@/Components/ProductDetails.vue";
+import ProductCarousel from "@/Components/ProductCarousel.vue";
+import DetailsTable from "@/Components/DetailsTable.vue";
 
 defineProps({
     canLogin: {
@@ -77,63 +79,24 @@ defineProps({
 
         </template>
 
+        <!--Main-->
         <div class="mx-auto max-w-7xl">
-            <div class="mt-5 bg-white">
-                <div class="grid grid-cols-2 gap-4 p-5 rounded overflow-hidden shadow-md">
-                    <div id="default-carousel" data-carousel="slide" class="relative pb-10">
-                        <!-- Carousel wrapper -->
-                        <div v-for="(slide, index) in slides" :key="index"
-                             class="h-96 mx-auto"
-                             v-show="index === currentSlide">
-                            <img :src="slide" class="object-contain h-full w-full p-10" alt="...">
-                        </div>
+            <div class="bg-white border-t">
+                <div class="grid grid-cols-2 gap-4 pb-5 px-10 overflow-hidden shadow-md">
+                    <!--Carousel-->
+                    <ProductCarousel :vendor_code="product.vendor_code"></ProductCarousel>
 
-
-                        <!-- Slider indicators -->
-                        <div
-                            class="absolute z-30 flex -translate-x-1/2 bottom-2 left-1/2 space-x-3 rtl:space-x-reverse">
-                            <button v-for="(slide, index) in slides" :key="index" type="button"
-                                    class="w-15 h-15 focus:outline outline-1 rounded-full p-1"
-                                    :class="{ 'bg-opacity-40': currentSlide === index }"
-                                    :aria-current="currentSlide === index"
-                                    :aria-label="`Slide ${index + 1}`"
-                                    @click="goToSlide(index)">
-                                <img :src="slide" alt="aboba" class="object-contain h-full w-full ">
-                            </button>
-                        </div>
-
-
-                        <!-- Slider controls -->
-                        <div
-                            class="absolute top-0 start-5 z-30 flex border-1 items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                            @click="prevSlide">
-                            <span
-                                class="hover:bg-gray-100 bg-gray-200 inline-flex items-center  justify-center w-10 h-10 rounded-full">
-                                <svg class="w-4 h-4 text-black rtl:rotate-180" aria-hidden="true"
-                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                    <path stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                          d="M5 1 1 5l4 4"/>
-                                </svg>
-                                <span class="sr-only">Previous</span>
-                            </span>
-                        </div>
-
-                        <div
-                            class="absolute top-0 end-5 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                            @click="nextSlide">
-      <span class="hover:bg-gray-100 bg-gray-200 inline-flex items-center  justify-center w-10 h-10 rounded-full">
-        <svg class="w-4 h-4 text-black rtl:rotate-180" aria-hidden="true"
-             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-        <span class="sr-only">Next</span>
-      </span>
-                        </div>
-                    </div>
+                    <!--Right of view-->
                     <div class="relative">
-                        <div class="text-2xl font-bold pt-10 whitespace-normal">{{ product.name }}</div>
-                        <div class="flex py-4">
+                        <div class="grid grid-cols-3 overflow-hidden bg-gray-50">
+                            <button @click="scrollToSection('description')" class="border-r py-2 text-gray-800 text-md hover:bg-gray-200">Опис</button>
+                            <button @click="scrollToSection('characteristics')" class="border-r py-2 text-gray-800 text-md hover:bg-gray-200">Характеристики</button>
+                            <button @click="scrollToSection('reviews')" class="border-r py-2 text-gray-800 text-md hover:bg-gray-200">Відгуки</button>
+                        </div>
+                        <div class="text-2xl font-bold mt-4 whitespace-normal text-justify">{{ product.name }}</div>
+                        <div class="flex py-4 items-center">
                             <Rating :rating="product.rating"></Rating>
+                            <span class="text-lg ml-2">({{ product.rating }}/5)</span>
                             <div class=ml-auto>
                                 <span class="text-xs">код для замовлення: </span>
                                 <span class="tracking-wide">{{ product.vendor_code }}</span>
@@ -147,18 +110,25 @@ defineProps({
                                 <span class="text-2xl">грн</span>
                             </div>
                         </div>
-                        <div v-else class="mb-2 flex">
+                        <div v-else class="mb-2 flex items-center absolute bottom-20 end-0">
                             <!-- Цена товара -->
                             <div class="text-5xl text-gray-700 ml-auto">{{ product.price }}
                                 <span class="text-2xl">грн</span>
                             </div>
                         </div>
-                        <div class="absolute bottom-6 w-full flex justify-end">
-                            <button class="bg-gray-200 text-gray-800 rounded-md hover:bg-gray-100 shadow-md text-lg py-2 mx-3 w-1/3">Залишити відгук</button>
-                            <button class="bg-gray-800 text-white rounded-md hover:bg-gray-700 text-lg py-2 w-40 shadow-md flex items-center justify-center">
+                        <div class="absolute bottom-5 w-full flex justify-end">
+                            <button
+                                class="bg-gray-50 text-gray-800 rounded-md hover:bg-gray-100 text-lg py-2 mx-3 w-full">
+                                ❤️ В бажане
+                            </button>
+                            <button
+                                class="bg-gray-800 text-white rounded-md hover:bg-gray-700 text-lg py-2 w-full shadow-md flex items-center justify-center">
                                 В корзину
-                                <svg class="w-6 h-6 text-gray-800 dark:text-white ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
+                                <svg class="w-6 h-6 text-gray-800 dark:text-white ml-2" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                          stroke-width="2"
+                                          d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
                                 </svg>
                             </button>
                         </div>
@@ -167,11 +137,33 @@ defineProps({
             </div>
         </div>
 
+        <!--Description-->
         <div class="mx-auto max-w-7xl">
-            <div class="mt-1">
-                <div class="grid grid-cols-2 gap-4 bg-white p-5 rounded overflow-hidden shadow-md">
-                    <ProductDetails :productDetails="product.details" />
-                </div>
+            <div class="border-t-2 border-dashed bg-white p-5 rounded overflow-hidden shadow-md">
+                <section id="description">
+                    <div class="text-justify px-14 pt-2">
+                        <div class="py-2 flex">
+                            <span class="text-3xl font-bold mx-auto">Опис товару</span>
+                        </div>
+                        <p class="leading-7 mt-5 whitespace-pre-wrap" v-html="product.description"/>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!--Characteristics-->
+        <div class="mx-auto max-w-7xl">
+            <div class="border-t-2 border-dashed bg-white p-5 rounded overflow-hidden shadow-md">
+                <section id="characteristics">
+                    <div class="text-justify px-14 pt-2">
+                        <div class="py-2 flex">
+                            <span class="text-3xl font-bold mx-auto">Характеристики</span>
+                        </div>
+                        <div class="py-5">
+                            <DetailsTable :details="JSON.parse(product.details)"></DetailsTable>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </MainLayout>
@@ -179,43 +171,13 @@ defineProps({
 
 <script>
 export default {
-    data() {
-        return {
-            currentSlide: 0,
-            slides: [],
-            numberOfImages: 0,
-        };
-    },
     methods: {
-        fetchNumberOfImages() {
-            axios.get(`/api/products/${this.product.vendor_code}`)
-                .then(response => {
-                    this.numberOfImages = response.data.numberOfImages;
-                    this.fetchImages();
-                })
-                .catch(error => {
-                    console.error('Error fetching categories', error);
-                });
-        },
-        prevSlide() {
-            this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-        },
-        nextSlide() {
-            this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-        },
-        goToSlide(index) {
-            this.currentSlide = index;
-        },
-        fetchImages() {
-            for (let i = 1; i <= this.numberOfImages; i++) {
-                const imageUrl = `/storage/hardware/monitors/${this.product.vendor_code}/${i}.webp`;
-                this.slides.push(imageUrl);
-            }
+        scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
         },
     },
-    mounted() {
-        this.fetchNumberOfImages()
-    }
-
 };
 </script>
