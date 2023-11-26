@@ -19,10 +19,10 @@
 
         <!-- Slider indicators -->
         <div
-            class="absolute z-30 flex -translate-x-1/2 bottom-2 left-1/2 space-x-3 rtl:space-x-reverse">
+            class="absolute z-30 px-10 flex bottom-2 space-x-3 rtl:space-x-reverse">
             <button v-for="(slide, index) in slides" :key="index" type="button"
-                    class="w-15 h-15 focus:outline outline-1 rounded-full p-1"
-                    :class="{ 'bg-opacity-40': currentSlide === index }"
+                    class="w-15 h-15 outline-2 rounded p-1"
+                    :class="{ 'outline': currentSlide === index }"
                     :aria-current="currentSlide === index"
                     :aria-label="`Slide ${index + 1}`"
                     @click="goToSlide(index)">
