@@ -103,7 +103,7 @@ export default {
                     </Dropdown>
                 </div>
                 <!-- Search field -->
-                <div class="w-1/2 ms-6">
+                <div class="w-full ms-6">
                     <SearchField></SearchField>
                 </div>
                 <!-- Auth -->
