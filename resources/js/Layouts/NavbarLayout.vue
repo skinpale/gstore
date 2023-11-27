@@ -1,13 +1,12 @@
 <script setup>
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
-import Dropdown from "@/Components/Dropdown.vue";
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import {Link} from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
 import SearchField from "@/Components/SearchField.vue";
+import DropdownCatalogue from "@/Components/DropdownCatalogue.vue";
 
 defineProps({
     canLogin: {
@@ -93,7 +92,7 @@ export default {
 
                 <!-- Categories -->
                 <div class="relative">
-                    <Dropdown align="left" content-classes="bg-gray-900">
+                    <DropdownCatalogue align="left" content-classes="bg-gray-900">
                         <template #trigger>
                             <span class="inline-flex rounded-md">
                                 <PrimaryButton
@@ -133,7 +132,7 @@ export default {
                                 </div>
                             </div>
                         </template>
-                    </Dropdown>
+                    </DropdownCatalogue>
                 </div>
                 <!-- Search field -->
                 <div class="w-full ms-6">
