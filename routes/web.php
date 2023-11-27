@@ -47,5 +47,5 @@ Route::get('/', function (){
 
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 
-Route::get('/{category}/{subcategory?}', [ProductController::class, 'getProducts'])->name('products');
+Route::get('/{category}/{subcategory?}', [ProductController::class, 'index'])->name('products');
 

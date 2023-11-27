@@ -5,15 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 class ProductController extends Controller
 {
-    public function getProducts(Request $request, Category $category, Subcategory $subcategory = null)
+    public function index(Category $category, Subcategory $subcategory = null)
     {
         $productsQuery = $subcategory
             ? $subcategory->products()

@@ -50,6 +50,14 @@ export default {
                     console.error('Error fetching categories', error);
                 });
         },
+        hasSubcategories(categoryId) {
+            // Check if there are subcategories for the given category
+            return this.subcategories.some((subcategory) => subcategory.category_id === categoryId);
+        },
+        getSubcategories(categoryId) {
+            // Return an array of subcategories for the given category
+            return this.subcategories.filter((subcategory) => subcategory.category_id === categoryId);
+        },
     },
 };
 </script>
@@ -85,7 +93,7 @@ export default {
 
                 <!-- Categories -->
                 <div class="relative">
-                    <Dropdown align="left" width="48">
+                    <Dropdown align="left" content-classes="bg-gray-900">
                         <template #trigger>
                             <span class="inline-flex rounded-md">
                                 <PrimaryButton
@@ -107,15 +115,20 @@ export default {
                         </template>
 
                         <template #content>
-                            <div class="grid grid-cols-5 gap-4 max-h-[400px]">
+                            <div class="grid grid-cols-2">
                                 <div v-for="category in categories" :key="category.id">
-                                    <DropdownLink :href="route('products', {category: category.url})" class="font-bold">
-                                        {{ category.name }}
+                                    <DropdownLink :href="route('products', { category: category.url })" class="hover:bg-red-500 rounded">
+                                        <span class="text-xl font-bold text-white">{{ category.name }}</span>
                                     </DropdownLink>
-                                    <div v-for="subcategory in subcategories" :key="subcategory.id">
-                                        <DropdownLink  :href="route('products', {category: category.url, subcategory: subcategory.url})">
-                                            {{ subcategory.name }}
-                                        </DropdownLink>
+                                    <div v-if="hasSubcategories(category.id)">
+                                        <div v-for="subcategory in getSubcategories(category.id)" :key="subcategory.id">
+                                            <DropdownLink
+                                                :href="route('products', { category: category.url, subcategory: subcategory.url })"
+                                                class="hover:bg-red-500 rounded"
+                                            >
+                                                <span class="text-white text-md">{{ subcategory.name }}</span>
+                                            </DropdownLink>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

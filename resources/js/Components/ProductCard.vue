@@ -8,6 +8,16 @@
             <!-- Название товара -->
             <h2 class="text-lg font-semibold line-clamp-2">{{ product.name }}</h2>
 
+            <!-- Наявність -->
+            <div class="flex my-3">
+                <div class="text-sm ml-auto">
+                    <span v-if="product.stock_quantity>0">
+                        є в наявності
+                    </span>
+                </div>
+            </div>
+
+
             <!--Рейтинг-->
             <div class="flex">
                 <div class="ml-auto flex items-center">
