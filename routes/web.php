@@ -45,8 +45,6 @@ Route::get('/', function (){
     ]);
 })->name('/');
 
-Route::post('/reviews', [ReviewController::class, 'store']);
-
 Route::get('/search}', [ProductController::class, 'search'])->name('search');
 
 Route::get('/products/{product}', [ProductController::class, 'getProduct'])->name('products.show');

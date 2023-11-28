@@ -142,7 +142,7 @@ export default {
                 <div v-if="canLogin" class="ml-4 text-end">
                     <div v-if="$page.props.auth.user" class="flex items-center">
                         <!--Profile-->
-                        <Link :href="route('/')">
+                        <Link :href="route('profile.edit')">
                             <SecondaryButton class="h-9 ml-3">
                                 <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                      fill="none" viewBox="0 0 20 16">
