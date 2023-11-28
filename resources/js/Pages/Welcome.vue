@@ -22,7 +22,7 @@ defineProps({
             <Carousel/>
             <div class="py-5 bg-white px-5 rounded-b">
                 <div v-if="products.length > 0">
-                    <div class="grid grid-cols-4 gap-4 pt-2">
+                    <div class="grid grid-cols-4 gap-4 pt-2 pb-5">
                         <a v-for="product in products" :key="product.id"
                            :href="route('products.show', {product : product.vendor_code})">
                             <ProductCard :product="product"></ProductCard>

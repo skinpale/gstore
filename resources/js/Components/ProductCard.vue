@@ -17,7 +17,6 @@
                 </div>
             </div>
 
-
             <!--Рейтинг-->
             <div class="flex">
                 <div class="ml-auto flex items-center">

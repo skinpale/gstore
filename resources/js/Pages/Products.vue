@@ -43,7 +43,7 @@ defineProps({
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <a href="/"
+                        <a href="/public"
                            class="inline-flex items-center text-sm font-medium text-gray-400 hover:text-gray-700">
                             <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                  fill="currentColor" viewBox="0 0 20 20">

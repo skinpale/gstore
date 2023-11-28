@@ -3,6 +3,7 @@
 use App\Http\Controllers\Pages\WelcomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReviewController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,10 +45,11 @@ Route::get('/', function (){
     ]);
 })->name('/');
 
+Route::post('/reviews', [ReviewController::class, 'store']);
 
 Route::get('/search}', [ProductController::class, 'search'])->name('search');
 
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}', [ProductController::class, 'getProduct'])->name('products.show');
 
 Route::get('/{category}/{subcategory?}', [ProductController::class, 'index'])->name('products');
 

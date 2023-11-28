@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use phpDocumentor\Reflection\Types\Integer;
 
 class ProductController extends Controller
 {
@@ -24,7 +23,7 @@ class ProductController extends Controller
 
         $products_amount = $productsQuery->count();
         $allProducts = $productsQuery->orderBy($sortColumn, $sortOrder);
-        $products = $allProducts->paginate(1);
+        $products = $allProducts->paginate(8);
 
         $products->appends(['by' => $sortColumn, 'as' => $sortOrder]);
         return Inertia::render('Products', [
@@ -45,7 +44,7 @@ class ProductController extends Controller
 
         $allProducts = Product::where('name', 'LIKE', '%' . $keyword . '%')
             ->orderBy($sortColumn, $sortOrder)
-            ->paginate(1);
+            ->paginate(8);
 
         $products_amount = $allProducts->total();
 
@@ -60,17 +59,26 @@ class ProductController extends Controller
         ]);
     }
 
-    public function show($code){
+    public function getProduct($code){
         $product = Product::where('vendor_code', $code)->first();
 
         if(!$product){
             abort(404);
         }
 
-        return Inertia::render('Product', [
+        $reviews = $product->reviews()->with('user')->get();
+
+        $reviewsWithUsername = $reviews->map(function ($review) {
+            $review->username = $review->user->name;
+            return $review;
+        });
+
+        return Inertia::render('Product/Main', [
             'product' => $product,
             'category' => $product->category,
-            'subcategory' => $product->subcategory
+            'subcategory' => $product->subcategory,
+            'reviews' => $reviewsWithUsername,
+            'amount' => $reviewsWithUsername->count()
         ])->with([
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register')
