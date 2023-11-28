@@ -65,7 +65,7 @@ const open = ref(false);
                 v-show="open"
                 class="absolute z-50 shadow-2xl rounded-md w-full"
                 :class="[widthClass, alignmentClasses]"
-                style="display: none; width: 300px"
+                style="display: none; width: 140px"
                 @click="open = false"
             >
                 <div class="rounded ring-1 ring-black ring-opacity-5" :class="contentClasses">

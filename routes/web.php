@@ -36,14 +36,16 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/', function (){
-    $products = Product::whereNotNull('discount_price')->get();
-
+    $products = Product::whereNotNull('discount_price')->take(8)->get();
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
         'products' => $products
     ]);
 })->name('/');
+
+
+Route::get('/search}', [ProductController::class, 'search'])->name('search');
 
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 

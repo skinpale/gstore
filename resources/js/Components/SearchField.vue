@@ -1,5 +1,5 @@
 <template>
-    <form>
+    <form @submit.prevent="handleSubmit">
         <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
         <div class="relative">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -11,7 +11,19 @@
             </div>
             <input type="search" id="search"
                    class="block w-full p-1.5 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
-                   placeholder="Пошук товарів" required>
+                   placeholder="Пошук товарів" required
+                   @keydown.enter="handleSubmit">
         </div>
     </form>
 </template>
+
+<script>
+export default {
+    methods: {
+        handleSubmit() {
+            const searchTerm = document.getElementById('search').value;
+            window.location.href = route('search', {q: searchTerm});
+        }
+    }
+}
+</script>
