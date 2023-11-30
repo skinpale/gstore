@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Review extends Model
 {
     use HasFactory;
-    protected $fillable = ['rating', 'comment'];
+    protected $fillable = ['rating', 'comment', 'user_id', 'product_id'];
 
     public function user(): BelongsTo{
         return $this->belongsTo(User::class);

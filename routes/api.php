@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/products/{vendorCode}', [ProductController::class, 'getNumberOfImages']);
 Route::get('/categories', [CategoryController::class, 'getCategories']);
 Route::get('/subcategories', [CategoryController::class, 'getSubCategories']);
+
+Route::get('/reviews', [ReviewController::class, 'get']);
+Route::post('/reviews', [ReviewController::class, 'store']);
 
 

@@ -22,7 +22,6 @@ defineProps({
         type: Number
     }
 });
-
 </script>
 
 <template>
