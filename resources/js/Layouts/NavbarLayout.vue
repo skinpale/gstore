@@ -7,15 +7,6 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import SearchField from "@/Components/SearchField.vue";
 import DropdownCatalogue from "@/Components/DropdownCatalogue.vue";
-
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    }
-});
 </script>
 
 <script>
@@ -78,7 +69,7 @@ export default {
                 <!-- Additional Links -->
                 <div class="flex items-center">
                     <div class="space-x-4">
-                        <NavLink href="#" :active="route().current('#')">Про нас</NavLink>
+                        <NavLink :href="route('about')" :active="route().current('#')">Про нас</NavLink>
                         <NavLink href="#" :active="route().current('#')">Магазини</NavLink>
                         <NavLink href="#" :active="route().current('#')">Гарантія</NavLink>
                     </div>
@@ -139,8 +130,15 @@ export default {
                     <SearchField></SearchField>
                 </div>
                 <!-- Auth -->
-                <div v-if="canLogin" class="ml-4 text-end">
+                <div class="ml-4 text-end">
                     <div v-if="$page.props.auth.user" class="flex items-center">
+                        <!--Favorite-->
+                        <Link :href="route('/')">
+                            <SecondaryButton class="h-9 ml-3 flex">
+                                <span class="mr-2"> бажане </span>
+                                <span> ❤️ </span>
+                            </SecondaryButton>
+                        </Link>
                         <!--Profile-->
                         <Link :href="route('profile.edit')">
                             <SecondaryButton class="h-9 ml-3">
@@ -178,7 +176,6 @@ export default {
                         <div class="flex items-center ml-3">
                             <Link :href="route('login')"><PrimaryButton>Увійти</PrimaryButton></Link>
                             <Link
-                                v-if="canRegister"
                                 :href="route('register')"
                                 class="ms-4 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
                                 <PrimaryButton>Зареєструватися</PrimaryButton>

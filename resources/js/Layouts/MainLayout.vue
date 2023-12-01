@@ -1,20 +1,11 @@
 <script setup>
 import NavbarLayout from "@/Layouts/NavbarLayout.vue";
 import Footer from "@/Layouts/Footer.vue";
-
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    }
-});
 </script>
 
 <template>
     <div>
-        <NavbarLayout :can-login="canLogin" :can-register="canRegister"/>
+        <NavbarLayout/>
 
         <div class="min-h-screen bg-pattern-2">
             <!-- Page Heading -->
