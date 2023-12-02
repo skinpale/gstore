@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-2 gap-4 pb-5 px-10 overflow-hidden shadow-md">
+    <div class="grid grid-cols-2 gap-4 pb-5 px-10 overflow-hidden shadow-md relative">
         <!--Carousel-->
         <ProductCarousel :vendor_code="product.vendor_code"></ProductCarousel>
 
@@ -34,9 +34,12 @@
                 </div>
             </div>
             <div class="absolute bottom-5 w-full flex justify-end">
-                <button
+                <button v-if="!isFavoriteRef" @click="addFavorite"
                     class="bg-gray-50 text-gray-800 rounded-md hover:bg-gray-100 text-lg py-2 mx-3 w-full">
                     ❤️ В бажане
+                </button>
+                <button v-else class="bg-gray-200 text-gray-800 rounded-md text-lg py-2 mx-3 w-full" disabled>
+                    ✅ В бажаному
                 </button>
                 <button
                     class="bg-gray-800 text-white rounded-md hover:bg-gray-700 text-lg py-2 w-full shadow-md flex items-center justify-center">
@@ -55,28 +58,24 @@
 <script setup>
 import Rating from "@/Components/Rating.vue";
 import ProductCarousel from "@/Components/ProductCarousel.vue";
+import {usePage} from "@inertiajs/vue3";
+import {ref} from "vue";
+const { product, reviewsAmount, isFavorite } = defineProps(['product', 'reviewsAmount', 'isFavorite']);
+const user = usePage().props.auth.user;
+const isFavoriteRef = ref(isFavorite);
 
-defineProps({
-    product: {
-        type: Object
-    },
-    reviewsAmount: {
-        type: Number
-    }
-})
-</script>
+const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+};
 
+const addFavorite = async () => {
+    await axios.post('/api/favorite', {
+        product_id: product.id
+    });
 
-<script>
-export default {
-    methods: {
-        scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        },
-    },
+    isFavoriteRef.value = true;
 };
 </script>
-

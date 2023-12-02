@@ -22,7 +22,7 @@ Route::get('/about', [LinksController::class, 'about'])->name('about');
 Route::get('/guarantee', [LinksController::class, 'guarantee'])->name('guarantee');
 Route::get('/points', [LinksController::class, 'points'])->name('points');
 
-Route::get('/products/{product}', [ProductController::class, 'getProduct'])->name('products.show');
+Route::get('/products/{product}', [ProductController::class, 'getProduct'])->name('products.show')->middleware('web');
 
 Route::get('/{category}/{subcategory?}', [ProductController::class, 'index'])->name('products');
 

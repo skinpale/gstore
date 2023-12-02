@@ -20,6 +20,9 @@ defineProps({
     },
     amount: {
         type: Number
+    },
+    isFavorite: {
+        type: Boolean
     }
 });
 </script>
@@ -86,7 +89,7 @@ defineProps({
         <!--Main-->
         <div class="mx-auto max-w-7xl">
             <div class="bg-white border-t">
-                <ShortInfo :product="product" :reviews-amount="amount"/>
+                <ShortInfo :product="product" :reviews-amount="amount" :is-favorite="isFavorite"/>
             </div>
         </div>
 

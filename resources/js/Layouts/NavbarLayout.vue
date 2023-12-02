@@ -14,12 +14,14 @@ export default {
     data() {
         return {
             categories: [],
-            subcategories: []
+            subcategories: [],
+            cart: 0
         };
     },
     created() {
         this.fetchCategories();
         this.fetchSubCategories();
+        this.fetchCart();
     },
     methods: {
         fetchCategories() {
@@ -38,6 +40,15 @@ export default {
                 })
                 .catch(error => {
                     console.error('Error fetching categories', error);
+                });
+        },
+        fetchCart() {
+            axios.get('/api/cart/amount')
+                .then(response => {
+                    this.cart = response.data;
+                })
+                .catch(error => {
+                    console.error('Error fetching cart', error);
                 });
         },
         hasSubcategories(categoryId) {
@@ -132,13 +143,6 @@ export default {
                 <!-- Auth -->
                 <div class="ml-4 text-end">
                     <div v-if="$page.props.auth.user" class="flex items-center">
-                        <!--Favorite-->
-                        <Link :href="route('/')">
-                            <SecondaryButton class="h-9 ml-3 flex">
-                                <span class="mr-2"> бажане </span>
-                                <span> ❤️ </span>
-                            </SecondaryButton>
-                        </Link>
                         <!--Profile-->
                         <Link :href="route('profile.edit')">
                             <SecondaryButton class="h-9 ml-3">
@@ -150,13 +154,14 @@ export default {
                         </Link>
                         <!--Cart-->
                         <Link :href="route('/')">
-                            <SecondaryButton class="h-9 ml-3">
+                            <SecondaryButton class="h-9 ml-3 relative">
                                 <svg class="w-5 h-5 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                      fill="none" viewBox="0 0 18 20">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                           stroke-width="1"
                                           d="M6 15a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm0 0h8m-8 0-1-4m9 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-9-4h10l2-7H3m2 7L3 4m0 0-.792-3H1"/>
                                 </svg>
+                                <span v-if="cart > 0" class="bg-red-500 text-xs font-medium text-white text-center p-1 leading-none rounded-full px-2 absolute -translate-y-1/3 translate-x-1/3 left-auto top-0 right-0">{{cart}}</span>
                             </SecondaryButton>
                         </Link>
                         <!--Logout-->

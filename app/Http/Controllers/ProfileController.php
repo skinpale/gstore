@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Favorite;
+use App\Models\Product;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,9 +20,19 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
+        $user_id = Auth::id();
+
+        $favorites = Favorite::with('product')->where("user_id", $user_id)->get();
+
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
+            'favorites' => $favorites->map(function ($favorite) {
+                return [
+                    'favorite' => $favorite,
+                    'product' => $favorite->product,
+                ];
+            }),
         ]);
     }
 

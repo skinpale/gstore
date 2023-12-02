@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Favorite;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -73,12 +75,24 @@ class ProductController extends Controller
             return $review;
         });
 
+        $user = Auth::user();
+        if($user) {
+            $favoriteExists = Favorite::where([
+                'product_id' => $product->id,
+                'user_id' => $user->id,
+            ])->exists();
+        }
+        else{
+            $favoriteExists = false;
+        }
+
         return Inertia::render('Product/Main', [
             'product' => $product,
             'category' => $product->category,
             'subcategory' => $product->subcategory,
             'reviews' => $reviewsWithUsername,
-            'amount' => $reviewsWithUsername->count()
+            'amount' => $reviewsWithUsername->count(),
+            'isFavorite' => $favoriteExists
         ])->with([
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register')
