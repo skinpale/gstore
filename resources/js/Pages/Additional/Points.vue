@@ -22,7 +22,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                       stroke-width="2" d="m1 9 4-4-4-4"/>
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-400">Про нас</span>
+                            <span class="ms-1 text-sm font-medium text-gray-400">Магазини</span>
                         </div>
                     </li>
                 </ol>
@@ -30,18 +30,22 @@
         </template>
         <!--Header-->
         <div class="text-3xl font-bold px-10 py-5 mx-auto max-w-7xl bg-white border-t border-b tracking-wide flex">
-            <span class="text-gray-700">Про нас </span>
+            <span class="text-gray-700">Магазини</span>
         </div>
 
         <div class="mx-auto max-w-7xl bg-white pb-10">
             <div class="py-5 bg-white px-10 rounded-b text-justify">
-                <p class="text-lg text-gray-600 leading-7 whitespace-pre-wrap">Ласкаво просимо до нашого ігрового універсуму, де кожен гравець знаходить щось особливе для себе! Ми - команда ентузіастів, які доторкнулися до світу геймінгу та вирішили поділитися своєю пристрастю з вами.</p>
+                <p class="text-lg text-gray-600 leading-7">Вітаємо вас у наших магазинах, розташованих в різних регіонах України. Ми розширюємо нашу мережу, щоб надати вам зручність покупок та особистий контакт з нашою командою експертів.</p>
                 <br>
-                <p class="text-lg text-gray-600 leading-7 whitespace-pre-wrap">У нашому асортименті ви знайдете найкращі ігрові атрибутики для всіх платформ - від консолей до ПК. Ми прагнемо надавати тільки високоякісні товари від провідних виробників геймінгової індустрії, щоб забезпечити вам найкращий геймплей та найбільше задоволення від ігор.</p>
+                <ul class="list-disc text-lg text-gray-600 leading-7 pl-8">
+                    <li><strong>Київ:</strong> вул. Прикладна, 123</li>
+                    <li><strong>Львів:</strong> проспект Геймерський, 45</li>
+                    <li><strong>Харків:</strong> вул. Ігрова, 67</li>
+                    <li><strong>Одеса:</strong> бульвар Геймплейний, 89</li>
+                    <!-- Додайте інші адреси за необхідністю -->
+                </ul>
                 <br>
-                <p class="text-lg text-gray-600 leading-7 whitespace-pre-wrap">Наша мета - не просто продавати атрибутику, але й створювати спільноту гравців, де кожен може знайти товар за своїм смаком та знайти нових друзів, які цінують ігровий світ так само, як і ви.</p>
-                <br>
-                <p class="text-lg text-gray-600 leading-7 whitespace-pre-wrap">Обирайте найкраще для свого геймплею разом з нами! Запрошуємо вас іммерсивно зануритися в світ ігор разом із нашим інтернет-магазином геймінгової атрибутики. Дозвольте собі бути кращим гравцем!</p>
+                <p class="text-lg text-gray-600 leading-7">Ми прагнемо створити дружню атмосферу в кожному з наших магазинів та забезпечити вас якісним обслуговуванням. Запрошуємо вас завітати та долучитися до нашої геймерської спільноти в магазинах у різних містах України!</p>
             </div>
         </div>
     </MainLayout>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AboutController;
+use App\Http\Controllers\LinksController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
@@ -18,7 +18,9 @@ Route::get('/', [WelcomeController::class, 'index'])->name('/');
 
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-Route::get('/about', [AboutController::class, 'index'])->name('about');
+Route::get('/about', [LinksController::class, 'about'])->name('about');
+Route::get('/guarantee', [LinksController::class, 'guarantee'])->name('guarantee');
+Route::get('/points', [LinksController::class, 'points'])->name('points');
 
 Route::get('/products/{product}', [ProductController::class, 'getProduct'])->name('products.show');
 

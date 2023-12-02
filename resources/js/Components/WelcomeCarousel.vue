@@ -60,11 +60,8 @@ export default {
         return {
             currentSlide: 0,
             slides: [
-                "https://picsum.photos/id/237/1024/800",
-                "https://picsum.photos/id/238/1024/800",
-                "https://picsum.photos/id/239/1024/800",
-                "https://picsum.photos/id/240/1024/800",
-                "https://picsum.photos/id/241/1024/800",
+                "storage/carousel/1.png",
+                "storage/carousel/2.png"
             ],
         };
     },

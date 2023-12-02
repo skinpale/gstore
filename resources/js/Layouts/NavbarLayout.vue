@@ -69,9 +69,9 @@ export default {
                 <!-- Additional Links -->
                 <div class="flex items-center">
                     <div class="space-x-4">
-                        <NavLink :href="route('about')" :active="route().current('#')">Про нас</NavLink>
-                        <NavLink href="#" :active="route().current('#')">Магазини</NavLink>
-                        <NavLink href="#" :active="route().current('#')">Гарантія</NavLink>
+                        <NavLink :href="route('about')" :active="route().current('about')">Про нас</NavLink>
+                        <NavLink :href="route('points')" :active="route().current('points')">Магазини</NavLink>
+                        <NavLink :href="route('guarantee')" :active="route().current('guarantee')">Гарантія</NavLink>
                     </div>
                 </div>
             </div>
