@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\LinksController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -21,6 +22,8 @@ Route::get('/search', [ProductController::class, 'search'])->name('search');
 Route::get('/about', [LinksController::class, 'about'])->name('about');
 Route::get('/guarantee', [LinksController::class, 'guarantee'])->name('guarantee');
 Route::get('/points', [LinksController::class, 'points'])->name('points');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart')->middleware('auth')->middleware('web');
 
 Route::get('/products/{product}', [ProductController::class, 'getProduct'])->name('products.show')->middleware('web');
 

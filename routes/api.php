@@ -3,6 +3,7 @@
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Http\Request;
@@ -30,9 +31,16 @@ Route::get('/subcategories', [CategoryController::class, 'getSubCategories']);
 Route::get('/reviews', [ReviewController::class, 'get']);
 Route::post('/reviews', [ReviewController::class, 'store']);
 
+Route::post('/order', [OrderController::class, 'create'])->middleware('web');
+Route::get('/orders', [OrderController::class, 'getOrders'])->middleware('web');
+
 Route::get('/cart/amount', [CartController::class, 'getAmount'])->middleware('web');
-Route::post('/favorite', [FavoriteController::class, 'addFavorite'])->middleware('auth')->middleware('web');
+Route::post('/cart', [CartController::class, 'addCart'])->middleware('web');
+Route::post('/cart/increment/{product_id}', [CartController::class, 'incrementCart'])->middleware('web');
+Route::post('/cart/decrement/{product_id}', [CartController::class, 'decrementCart'])->middleware('web');
+
 Route::get('/favorite', [FavoriteController::class, 'checkFavorite'])->middleware('auth')->middleware('web');
+Route::post('/favorite', [FavoriteController::class, 'addFavorite'])->middleware('auth')->middleware('web');
 Route::delete('/favorite/{product_id}', [FavoriteController::class, 'delete'])->middleware('auth')->middleware('web');
 
 

@@ -31,6 +31,8 @@ class ProfileController extends Controller
                 return [
                     'favorite' => $favorite,
                     'product' => $favorite->product,
+                    'category' => $favorite->product->category,
+                    'subcategory' => $favorite->product->subcategory
                 ];
             }),
         ]);

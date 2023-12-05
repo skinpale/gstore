@@ -42,6 +42,7 @@
                     ✅ В бажаному
                 </button>
                 <button
+                    @click="addCart"
                     class="bg-gray-800 text-white rounded-md hover:bg-gray-700 text-lg py-2 w-full shadow-md flex items-center justify-center">
                     В корзину
                     <svg class="w-6 h-6 text-gray-800 dark:text-white ml-2" aria-hidden="true"
@@ -52,6 +53,51 @@
                     </svg>
                 </button>
             </div>
+            <transition name="fade">
+                <div v-if="isModalVisible">
+                    <div
+                        @click="onToggle"
+                        class="absolute inset-0 z-0"
+                    ></div>
+                    <div
+                        class="w-full max-w-md p-2 relative mx-auto rounded-xl shadow-lg bg-red-300 translate-y-24"
+                    >
+                        <div>
+                            <div class="text-center p-1 flex-auto justify-center leading-6 flex items-center">
+                                <p class="text-md text-white px-8">
+                                    Спочатку потрібно увійти в обліковий запис
+                                </p>
+                                <svg @click="onToggle" class="h-5 w-5 text-white cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
+
+            <transition name="fade">
+                <div v-if="isModalVisible2">
+                    <div
+                        @click="onToggle2"
+                        class="absolute inset-0 z-0"
+                    ></div>
+                    <div
+                        class="w-full max-w-md p-2 relative mx-auto rounded-xl shadow-lg bg-green-500 translate-y-24"
+                    >
+                        <div>
+                            <div class="text-center p-1 flex-auto justify-center leading-6 flex items-center">
+                                <p class="text-md text-white px-8">
+                                    Товар додано в корзину
+                                </p>
+                                <svg @click="onToggle2" class="h-5 w-5 text-white cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -59,7 +105,7 @@
 import Rating from "@/Components/Rating.vue";
 import ProductCarousel from "@/Components/ProductCarousel.vue";
 import {usePage} from "@inertiajs/vue3";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 const { product, reviewsAmount, isFavorite } = defineProps(['product', 'reviewsAmount', 'isFavorite']);
 const user = usePage().props.auth.user;
 const isFavoriteRef = ref(isFavorite);
@@ -72,10 +118,44 @@ const scrollToSection = (sectionId) => {
 };
 
 const addFavorite = async () => {
-    await axios.post('/api/favorite', {
-        product_id: product.id
-    });
+    if(user) {
+        await axios.post('/api/favorite', {
+            product_id: product.id
+        });
 
-    isFavoriteRef.value = true;
+        isFavoriteRef.value = true
+    }
+    else{
+        onToggle();
+    }
+};
+
+const addCart = async () => {
+    if(user) {
+        await axios.post('/api/cart', {
+            product_id: product.id
+        });
+        onToggle2();
+    }
+    else{
+        onToggle();
+    }
+};
+
+const isOpen = ref(false);
+
+const isModalVisible = computed(() => isOpen.value);
+
+const onToggle = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const isOpen2 = ref(false);
+
+const isModalVisible2 = computed(() => isOpen2.value);
+
+const onToggle2 = () => {
+    isOpen2.value = !isOpen2.value;
 };
 </script>
+

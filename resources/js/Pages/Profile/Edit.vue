@@ -74,8 +74,8 @@ defineProps({
                     <div>
                         <div v-if="favorites.length>0" v-for="(favorite, index) in favorites" :key="favorite.id" class="flex py-2 border-b">
                             <div class="mr-2"><span>{{index+1}}.</span></div>
-                            <div><img :src="linkBuilder(favorite.product.vendor_code)" class="h-7 mr-3" alt=""></div>
-                            <div><span>{{favorite.product.name}}</span></div>
+                            <div><img :src="linkBuilder(favorite)" class="h-7 mr-3" alt=""></div>
+                            <div><a :href="route(`products.show`, {product: favorite.product.vendor_code})">{{favorite.product.name}}</a></div>
                             <div class="ml-auto">
                                 <svg @click="removeFavorite(index)" class="h-5 w-5 text-gray-500 cursor-pointer hover:text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -98,8 +98,8 @@ defineProps({
 <script>
 export default {
     methods: {
-        linkBuilder(code){
-            return `/storage/hardware/monitors/${code}/1.webp`
+        linkBuilder(favorite){
+            return `/storage/${favorite.category.url}/${favorite.subcategory.url}/${favorite.product.vendor_code}/1.webp`
         },
         async removeFavorite(index) {
             try {
